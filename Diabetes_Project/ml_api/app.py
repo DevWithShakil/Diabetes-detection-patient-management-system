@@ -1,63 +1,68 @@
 from flask import Flask, request, jsonify
-from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
-import pandas as pd
-import numpy as np
+import joblib
 
 app = Flask(__name__)
 
-# Load dataset
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/diabetes.csv')
+# load dataset local or remote
+df = pd.read_csv('diabetes.csv')
 X = df.drop('Outcome', axis=1)
 y = df['Outcome']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X_scaled = scaler.fit_transform(X)
 
-# Define models
 models = {
-    "Logistic Regression": LogisticRegression(),
-    "Random Forest": RandomForestClassifier(),
+    "Logistic Regression": LogisticRegression(max_iter=2000),
+    "Random Forest": RandomForestClassifier(n_estimators=100),
     "SVM": SVC(probability=True),
     "KNN": KNeighborsClassifier(),
     "Decision Tree": DecisionTreeClassifier()
 }
 
-# Train models
 accuracies = {}
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-    accuracies[name] = round(acc * 100, 2)
+# train once using cross validation for more stable metrics
+for name, m in models.items():
+    scores = cross_val_score(m, X_scaled, y, cv=5)
+    accuracies[name] = round(scores.mean()*100,2)
+    # fit on full scaled data for prediction
+    m.fit(X_scaled, y)
 
+# keep scaler and models in memory
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.json
-    input_data = np.array([
-        data['Pregnancies'], data['Glucose'], data['BloodPressure'],
-        data['SkinThickness'], data['Insulin'], data['BMI'],
-        data['DiabetesPedigreeFunction'], data['Age']
-    ]).reshape(1, -1)
-    
-    input_scaled = scaler.transform(input_data)
+    # expected fields; default 0 for pregnancies
+    vals = [data.get('Pregnancies',0),
+            data.get('Glucose',0),
+            data.get('BloodPressure',0),
+            data.get('SkinThickness',0),
+            data.get('Insulin',0),
+            data.get('BMI',0),
+            data.get('DiabetesPedigreeFunction',0),
+            data.get('Age',0)]
+    arr = np.array(vals).reshape(1,-1)
+    # transform using fitted scaler (fit on full dataset)
+    arr_scaled = scaler.transform(arr)
+    selected = data.get('models', None)  # optional list
     predictions = {}
-
-    for name, model in models.items():
-        pred = model.predict(input_scaled)[0]
-        predictions[name] = "Diabetic" if pred == 1 else "Non-Diabetic"
+    for name, m in models.items():
+        if selected and name not in selected:
+            continue
+        pred = m.predict(arr_scaled)[0]
+        predictions[name] = "Diabetic" if int(pred)==1 else "Non-Diabetic"
 
     return jsonify({
         "predictions": predictions,
-        "accuracies": accuracies
+        "accuracies": {k:accuracies[k] for k in predictions.keys()}
     })
 
 if __name__ == '__main__':

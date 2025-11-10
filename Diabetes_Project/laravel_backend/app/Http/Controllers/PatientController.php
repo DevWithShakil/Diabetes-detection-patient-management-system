@@ -75,7 +75,8 @@ class PatientController extends Controller
         return view('patients.show', compact('patient'));
     }
 
-    public function downloadReport(Patient $patient) {
+    public function downloadReport(Patient $patient)
+    {
         $pdf = Pdf::loadView('patients.pdf', compact('patient'));
         return $pdf->download('report-'.$patient->id.'.pdf');
     }
