@@ -133,6 +133,34 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+//     'providers' => [
+//     Barryvdh\DomPDF\ServiceProvider::class,
+// ],
+// 'aliases' => [
+//     'Pdf' => Barryvdh\DomPDF\Facade\Pdf::class,
+// ],
+
+// 'providers' => [
+//     /*
+//      * Laravel Framework Service Providers...
+//      */
+//     App\Providers\AuthServiceProvider::class,
+//     App\Providers\AppServiceProvider::class,
+//     App\Providers\RouteServiceProvider::class,
+// ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Class Aliases
+    |--------------------------------------------------------------------------
+    |
+    | This array of class aliases will be registered when this application
+    | is started. However, feel free to register as many as you wish as
+    | the
+
+    */
 ];
 
 

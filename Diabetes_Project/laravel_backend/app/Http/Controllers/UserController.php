@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware(['auth','can:admin']);
+    }
+
+    public function index()
+    {
+        $users = User::paginate(15);
+        return view('users.index', compact('users'));
+    }
+
+    public function updateRole(Request $request, User $user)
+    {
+        $request->validate([
+            'role' => 'required|in:admin,doctor,patient',
+        ]);
+
+        $user->role = $request->role;
+        $user->save();
+
+        return redirect()->route('users.index')->with('success','User role updated.');
+    }
+}

@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -37,6 +40,22 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
 Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('doctors', DoctorController::class);
+});
+
+
+// Admin-only group
+Route::middleware(['auth', 'can:admin'])->group(function () {
+    // Patients (index, destroy already in your PatientController)
+    Route::resource('patients', PatientController::class)->only(['index','destroy','show']);
+    Route::get('patients/{patient}/download', [PatientController::class, 'downloadReport'])->name('patients.download');
+
+    // Reports (view & delete reports) - using ReportController
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::delete('reports/{patient}', [ReportController::class, 'destroy'])->name('reports.destroy');
+
+    // User Role management
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::put('users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
 });
 
 
