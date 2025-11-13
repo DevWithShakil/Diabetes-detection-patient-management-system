@@ -50,6 +50,12 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     // Doctor Management
     Route::resource('doctors', DoctorController::class);
 
+    // User Management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users/add', [UserController::class, 'store'])->name('users.store');
+    Route::post('/users/{user}/update-role', [UserController::class, 'updateRole'])->name('users.updateRole');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
     // ✅ Patient Management (Full CRUD for admin)
     Route::get('patients', [PatientController::class, 'index'])->name('patients.index');
     Route::get('patients/create', [PatientController::class, 'create'])->name('patients.create');
