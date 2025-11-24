@@ -15,6 +15,11 @@ class PatientController extends Controller
     /**
      * 🏠 Patient Dashboard
      */
+
+    public function create()
+{
+    return view('patients.create');
+}
     public function dashboard()
     {
         $user = Auth::user();

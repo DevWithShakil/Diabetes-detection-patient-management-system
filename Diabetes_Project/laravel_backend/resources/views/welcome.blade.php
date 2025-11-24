@@ -77,7 +77,7 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
     <div class="container">
-        <h3 class="fw-bold text-primary m-0">🔬 Diabetes Management System</h3>
+        <h3 class="fw-bold text-primary m-0">🔬 Diabetes Prediction & Management System</h3>
     </div>
 </nav>
 
@@ -85,10 +85,10 @@
     <div class="row g-4 align-items-center">
 
         <!-- LEFT: HERO + FEATURES -->
-        <div class="col-lg-7">
+        <div class="col-lg-8">
 
             <div class="hero-section mb-4">
-                <h1 class="hero-title">Your Health, Powered by AI</h1>
+                <h1 class="hero-title">Your Complete Diabetes Care Hub</h1>
                 <p class="sub-text mt-3">A complete platform for diabetes prediction, doctor appointments, medical reports and intelligent patient management.</p>
                 <a href="#auth" class="btn btn-light btn-lg mt-3 fw-semibold px-5">Get Started →</a>
             </div>
@@ -98,14 +98,14 @@
                     <div class="feature-box">
                         <div class="feature-icon">🤖</div>
                         <h5 class="fw-bold">AI Prediction</h5>
-                        <p class="small">Instant diabetes prediction using ML.</p>
+                        <p class="small">Instant diabetes prediction</p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="feature-box">
                         <div class="feature-icon">🩺</div>
-                        <h5 class="fw-bold">Specialist Doctors</h5>
+                        <h5 class="fw-bold">Expert Doctors</h5>
                         <p class="small">Consult verified diabetes experts.</p>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
         </div>
 
         <!-- RIGHT: LOGIN | REGISTER -->
-        <div class="col-lg-5" id="auth">
+        <div class="col-lg-4" id="auth">
             <div class="auth-card">
 
                 <div class="d-flex mb-4">
@@ -136,11 +136,11 @@
                         @csrf
                         <div class="mb-3">
                             <label class="fw-semibold">Email</label>
-                            <input type="email" name="email" class="form-control form-control-lg" required>
+                            <input type="email" name="email" class="form-control form-control-lg fs-6" required>
                         </div>
                         <div class="mb-3">
                             <label class="fw-semibold">Password</label>
-                            <input type="password" name="password" class="form-control form-control-lg" required>
+                            <input type="password" name="password" class="form-control form-control-lg fs-6" required>
                         </div>
                         <button class="btn btn-primary w-100 btn-lg">Log In</button>
                     </form>

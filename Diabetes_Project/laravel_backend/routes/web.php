@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // 🔹 ADMIN ROUTES
 // ======================================================
 Route::middleware(['auth', 'can:admin'])->group(function () {
+    Route::post('/predict', [PatientController::class, 'storeDetection'])->name('predict');
+
 
     // Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
