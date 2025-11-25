@@ -16,6 +16,17 @@ class PatientController extends Controller
      * 🏠 Patient Dashboard
      */
 
+   public function index()
+{
+    // Fetch all patients for admin listing, newest first
+    $patients = Patient::orderBy('id', 'desc')->get();
+
+    // If you want pagination instead:
+    $patients = Patient::orderBy('id', 'desc')->paginate(10);
+
+    return view('patients.index', compact('patients'));
+}
+
     public function create()
 {
     return view('patients.create');
@@ -131,19 +142,21 @@ class PatientController extends Controller
      * ⬇️ Download Report PDF
      */
     public function downloadReport(Patient $patient)
-    {
-        if ($patient->user_id !== Auth::id()) {
-            abort(403);
-        }
-
-        $data = [
-            'patient' => $patient,
-            'result'  => json_decode($patient->result, true),
-        ];
-
-        $pdf = Pdf::loadView('patient.reports.pdf', $data);
-        return $pdf->download('Patient_Report_' . $patient->name . '.pdf');
+{
+    // allow admin or the owner patient
+    if (Auth::user()->role !== 'admin' && $patient->user_id !== Auth::id()) {
+        abort(403);
     }
+
+    $data = [
+        'patient' => $patient,
+        'result'  => json_decode($patient->result, true),
+    ];
+
+    $pdf = Pdf::loadView('patient.reports.pdf', $data);
+    return $pdf->download('Patient_Report_' . $patient->name . '.pdf');
+}
+
 
     /**
      * 🧪 Detection Form — Auto-fill user name (NON-editable)
@@ -257,4 +270,33 @@ class PatientController extends Controller
         return redirect()->route('patient.dashboard')
             ->with('success', 'Your test has been submitted and is under doctor review.');
     }
+
+    public function show(Patient $patient)
+{
+    return view('patients.show', compact('patient'));
+}
+
+public function destroy(Patient $patient)
+{
+    if (Auth::user()->role !== 'admin') {
+        abort(403);
+    }
+
+    // delete appointment notes first
+    foreach ($patient->appointments as $appt) {
+        $appt->notes()->delete();
+    }
+
+    // delete appointments
+    $patient->appointments()->delete();
+
+    // delete patient
+    $patient->delete();
+
+    return redirect()->route('patients.index')
+        ->with('success', 'Patient and related data removed.');
+}
+
+
+
 }

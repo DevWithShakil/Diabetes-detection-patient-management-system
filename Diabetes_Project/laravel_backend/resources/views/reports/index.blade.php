@@ -32,14 +32,22 @@
                     <td>{{ $patient->name }}</td>
                     <td>{{ $patient->age }}</td>
                     <td>
-                        @if(isset($res['predictions']))
-                            @foreach($res['predictions'] as $m => $p)
-                                <div><strong>{{ $m }}:</strong> {{ $p }}</div>
-                            @endforeach
-                        @else
-                            N/A
-                        @endif
-                    </td>
+    @php
+        $res = json_decode($patient->result, true);
+        $finalPrediction = $res['predictions']['Decision Tree']
+            ?? $res['status']
+            ?? 'N/A';
+    @endphp
+
+    @if(strtolower($finalPrediction) === 'diabetic')
+        <span class="badge bg-danger">Diabetic</span>
+    @elseif(strtolower($finalPrediction) === 'non-diabetic')
+        <span class="badge bg-success">Non-Diabetic</span>
+    @else
+        <span class="badge bg-secondary">{{ $finalPrediction }}</span>
+    @endif
+</td>
+
                     <td>{{ $patient->created_at->format('Y-m-d H:i') }}</td>
                     <td>
                         <a href="{{ route('patients.download', $patient->id) }}" class="btn btn-sm btn-outline-primary mb-1">Download</a>
