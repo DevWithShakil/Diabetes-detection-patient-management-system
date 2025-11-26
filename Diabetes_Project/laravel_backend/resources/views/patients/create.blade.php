@@ -11,7 +11,6 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      /* একটি সুন্দর হালকা নীল গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড */
       background: linear-gradient(135deg, #f0f4f8 0%, #d7e1ec 100%);
       min-height: 100vh;
       display: flex;
@@ -22,13 +21,11 @@
     .main-card {
       border: none;
       border-radius: 20px;
-      /* একটি সফট, গভীর শ্যাডো */
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       overflow: hidden;
     }
 
     .card-header-custom {
-      /* মেডিকেলের সাথে মানানসই নীল রঙ */
       background: linear-gradient(to right, #0d6efd, #0a58ca);
       color: white;
       padding: 25px 20px;
@@ -42,11 +39,10 @@
       margin-bottom: 8px;
     }
 
-    /* ইনপুট ফিল্ডের ডিজাইন */
     .input-group-text {
       background-color: #f8f9fa;
       border-color: #dee2e6;
-      color: #0d6efd; /* আইকনের রঙ */
+      color: #0d6efd;
     }
 
     .form-control:focus {

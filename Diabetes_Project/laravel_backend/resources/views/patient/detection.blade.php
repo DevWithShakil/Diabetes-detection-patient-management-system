@@ -108,7 +108,7 @@
                                 <label class="form-label small fw-bold text-muted">Diabetes Pedigree Function <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0 text-primary"><i class="fa-solid fa-dna"></i></span>
-                                    <input type="number" step="0.01" name="diabetes_pedigree_function" class="form-control border-start-0 ps-0" placeholder="e.g. 0.587" required>
+                                    <input type="number" step="0.001" name="diabetes_pedigree" class="form-control border-start-0 ps-0" placeholder="e.g. 0.587" required>
                                 </div>
                                 <div class="form-text text-muted small mt-1"><i class="fa-solid fa-circle-info me-1"></i> A function which scores likelihood of diabetes based on family history.</div>
                             </div>

@@ -143,11 +143,11 @@
                             <td class="text-center">
                                 @if($prediction === 1)
                                     <div class="d-inline-flex align-items-center gap-1 text-danger fw-bold small bg-danger bg-opacity-10 px-2 py-1 rounded">
-                                        <i class="fa-solid fa-triangle-exclamation"></i> High Risk
+                                        <i class="fa-solid fa-triangle-exclamation"></i> Diabetic
                                     </div>
                                 @elseif($prediction === 0)
                                     <div class="d-inline-flex align-items-center gap-1 text-success fw-bold small bg-success bg-opacity-10 px-2 py-1 rounded">
-                                        <i class="fa-solid fa-shield-heart"></i> Low Risk
+                                        <i class="fa-solid fa-shield-heart"></i> Non-Diabetic
                                     </div>
                                 @else
                                     <span class="text-muted small">—</span>
