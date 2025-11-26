@@ -215,20 +215,25 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6" data-aos="fade-right">
-          <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background:#eff6ff; border:1px solid #dbeafe; color:var(--primary-brand); font-size:13px; font-weight:700;">
-            <i class="fa-solid fa-star me-1"></i> #1 AI Health Platform
-          </div>
-          <h1 class="hero-title">Precision Diabetes Care, <br><span style="background: linear-gradient(to right, var(--primary-brand), var(--accent-teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Powered by AI.</span></h1>
-          <p class="hero-subtitle">
-            Get instant risk analysis, medical-grade reports, and connect with top endocrinologists. Manage your health with data, not guesses.
-          </p>
+          <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background:#fff7ed; border:1px solid #ffedd5; color:#c2410c; font-size:13px; font-weight:700;">
+    <i class="fa-solid fa-user-doctor me-1"></i> Expert Medical Guidance
+</div>
+
+<h1 class="hero-title">
+    Smart Screening for <br>
+    <span style="background: linear-gradient(to right, var(--primary-brand), var(--accent-teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Better Diabetes Care.</span>
+</h1>
+
+<p class="hero-subtitle">
+    We combine advanced technology with expert care to give you accurate risk assessments. From analysis to doctor consultations, get the complete guidance your health deserves.
+</p>
 
           <div class="d-flex flex-wrap gap-3 mb-5">
             <button class="btn btn-premium" data-bs-toggle="modal" data-bs-target="#authModal">Check Your Risk Now</button>
             <a href="#how-it-works" class="btn btn-light" style="border-radius:50px; padding:10px 24px; font-weight:600; color:var(--text-main);">How it works</a>
           </div>
 
-          <div class="d-flex flex-wrap">
+          {{-- <div class="d-flex flex-wrap">
             <div class="stat-pill">
               <i class="fa-solid fa-user-check"></i>
               <span><strong>15k+</strong> Patients</span>
@@ -241,7 +246,7 @@
               <i class="fa-solid fa-user-doctor"></i>
               <span><strong>Verified</strong> Doctors</span>
             </div>
-          </div>
+          </div> --}}
         </div>
 
         <div class="col-lg-6 hero-img-col" data-aos="fade-left">
