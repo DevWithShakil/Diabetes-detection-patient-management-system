@@ -1,28 +1,114 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <h3 class="mb-4">Add New Doctor</h3>
+@section('title', 'Add Specialist')
 
-    <form method="POST" action="{{ route('doctors.store') }}">
-        @csrf
-        <div class="mb-3">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name" required>
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="fw-bold mb-1 text-dark">Register New Doctor</h4>
+                <p class="small text-muted mb-0">Enter the specialist's details to onboard them.</p>
+            </div>
+            <a href="{{ route('doctors.index') }}" class="btn btn-light border btn-sm rounded-pill px-3 fw-bold">
+                <i class="fa-solid fa-arrow-left me-2"></i> Back to List
+            </a>
         </div>
-        <div class="mb-3">
-            <label>Email</label>
-            <input type="email" class="form-control" name="email" required>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-white p-4 border-bottom border-light">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                        <i class="fa-solid fa-user-doctor fs-5"></i>
+                    </div>
+                    <h6 class="mb-0 fw-bold">Doctor Information</h6>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <form method="POST" action="{{ route('doctors.store') }}">
+                    @csrf
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Full Name <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-user"></i></span>
+                                <input type="text" class="form-control bg-light border-start-0 ps-0" name="name" placeholder="Dr. John Doe" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Specialization <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-stethoscope"></i></span>
+                                <select class="form-select bg-light border-start-0 ps-0" name="specialization" required>
+                                    <option value="" selected disabled>Select Specialization</option>
+                                    <option value="Endocrinologist">Endocrinologist (Diabetes & Hormones)</option>
+                                    <option value="Diabetologist">Diabetologist</option>
+                                    <option value="General Physician">General Physician / Internal Medicine</option>
+                                    <option value="Cardiologist">Cardiologist (Heart)</option>
+                                    <option value="Nephrologist">Nephrologist (Kidney)</option>
+                                    <option value="Neurologist">Neurologist</option>
+                                    <option value="Nutritionist">Nutritionist / Dietitian</option>
+                                    <option value="Ophthalmologist">Ophthalmologist (Eye)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Email Address <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-envelope"></i></span>
+                                <input type="email" class="form-control bg-light border-start-0 ps-0" name="email" placeholder="doctor@hospital.com" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Phone Number <span class="text-muted fw-normal">(Optional)</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-phone"></i></span>
+                                <input type="text" class="form-control bg-light border-start-0 ps-0" name="phone" placeholder="+880 1XXX XXXXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 border-light">
+
+                    <div class="d-flex justify-content-end gap-3">
+                        <a href="{{ route('doctors.index') }}" class="btn btn-light border px-4 rounded-3 fw-bold">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4 rounded-3 fw-bold shadow-sm">
+                            <i class="fa-solid fa-check me-2"></i> Save Doctor
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
-        <div class="mb-3">
-            <label>Specialization</label>
-            <input type="text" class="form-control" name="specialization" required>
-        </div>
-        <div class="mb-3">
-            <label>Phone (optional)</label>
-            <input type="text" class="form-control" name="phone">
-        </div>
-        <button type="submit" class="btn btn-success">Save Doctor</button>
-    </form>
+
+    </div>
 </div>
+
+<style>
+    /* Custom input/select focus style for premium feel */
+    .form-control:focus, .form-select:focus {
+        background-color: #fff !important;
+        box-shadow: none;
+        border-color: #4361ee;
+    }
+    .input-group:focus-within .input-group-text {
+        background-color: #fff !important;
+        border-color: #4361ee;
+        color: #4361ee !important;
+    }
+    .input-group-text {
+        transition: all 0.3s;
+    }
+    .form-control, .form-select {
+        transition: all 0.3s;
+        padding: 12px;
+        cursor: pointer;
+    }
+</style>
 @endsection

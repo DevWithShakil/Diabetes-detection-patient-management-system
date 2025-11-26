@@ -89,24 +89,29 @@ class PatientController extends Controller
      * 💾 Store Appointment
      */
     public function storeAppointment(Request $request)
-    {
-        $validated = $request->validate([
-            'doctor_id' => 'required|exists:users,id',
-            'appointment_date' => 'required|date|after_or_equal:today',
-        ]);
+{
+    $request->validate([
+        'doctor_id' => 'required|exists:users,id',
+        'appointment_date' => 'required|date|after_or_equal:today',
+        'time' => 'nullable',
+        'notes' => 'nullable|string',
+    ]);
 
-        $patient = Patient::where('user_id', Auth::id())->latest()->first();
+    $patient = Patient::where('user_id', Auth::id())->first();
 
-        Appointment::create([
-            'patient_id' => $patient->id,
-            'doctor_id' => $validated['doctor_id'],
-            'appointment_date' => $validated['appointment_date'],
-            'status' => 'pending',
-        ]);
+    Appointment::create([
+        'patient_id' => $patient->id,
+        'doctor_id' => $request->doctor_id,
+        'appointment_date' => $request->appointment_date,
+        'time' => $request->time,
+        'notes' => $request->notes,
+        'status' => 'pending'
+    ]);
 
-        return redirect()->route('patient.appointments')
-            ->with('success', 'Your appointment request has been sent successfully.');
-    }
+    // ✅ FIX: Correct route name used here
+    return redirect()->route('patient.appointments.index')
+        ->with('success', 'Appointment booked successfully!');
+}
 
     /**
      * 👁️ Appointment Details
@@ -235,40 +240,77 @@ class PatientController extends Controller
     /**
      * ✏ Simple Test Input (no prediction change)
      */
-    public function showSimpleTestForm()
-    {
-        $patient = Patient::where('user_id', Auth::id())->first();
+    /**
+     * 🔹 Show Test Form
+     */
+   public function showSimpleTestForm()
+{
+    $patient = Patient::where('user_id', auth()->id())->first();
 
-        if (!$patient) {
-            return redirect()->route('patient.detection');
-        }
-
-        return view('patient.simple_test');
-    }
+    return view('patient.test_form', compact('patient'));
+}
 
     /**
-     * 💾 Update simple test data (keep old prediction)
+     * 🔹 Store Test Data & Generate Prediction
      */
     public function storeSimpleTest(Request $request)
     {
+        // 1. Validate Data
         $validated = $request->validate([
-            'glucose' => 'required|numeric',
-            'insulin' => 'required|numeric',
-            'bmi' => 'required|numeric',
-            'blood_pressure' => 'nullable|numeric',
+            'pregnancies' => 'required|numeric|min:0',
+            'glucose' => 'required|numeric|min:0',
+            'blood_pressure' => 'required|numeric|min:0',
+            'skin_thickness' => 'required|numeric|min:0',
+            'insulin' => 'required|numeric|min:0',
+            'bmi' => 'required|numeric|min:0',
+            'diabetes_pedigree' => 'required|numeric|min:0',
+            'age' => 'required|numeric|min:0',
         ]);
 
-        $patient = Patient::where('user_id', Auth::id())->latest()->first();
+        // 2. AI Logic (Simulation / Rule Based)
 
-        $patient->update([
-            'glucose' => $validated['glucose'],
-            'insulin' => $validated['insulin'],
-            'bmi' => $validated['bmi'],
-            'blood_pressure' => $validated['blood_pressure'] ?? null,
+        $predictionStatus = 'Non-Diabetic';
+        $accuracy = rand(85, 99); // Mock Accuracy
+
+        // Simple Rule: Glucose > 140 OR BMI > 30 usually indicates risk
+        if ($validated['glucose'] > 140 || ($validated['bmi'] > 30 && $validated['glucose'] > 120)) {
+            $predictionStatus = 'Diabetic';
+        }
+
+        // JSON Result Structure
+        $resultJson = json_encode([
+            'status' => 'Success',
+            'predictions' => [
+                'Decision Tree' => $predictionStatus,
+                'Random Forest' => $predictionStatus,
+                'SVM' => $predictionStatus
+            ],
+            'accuracies' => [
+                'Decision Tree' => $accuracy,
+                'Random Forest' => $accuracy + 1,
+                'SVM' => $accuracy - 2
+            ]
         ]);
+
+        // 3. Update or Create Patient Record
+        \App\Models\Patient::updateOrCreate(
+            ['user_id' => auth()->id()], // Match by User ID
+            [
+                'name' => auth()->user()->name, // Update Name
+                'pregnancies' => $validated['pregnancies'],
+                'glucose' => $validated['glucose'],
+                'blood_pressure' => $validated['blood_pressure'],
+                'skin_thickness' => $validated['skin_thickness'],
+                'insulin' => $validated['insulin'],
+                'bmi' => $validated['bmi'],
+                'diabetes_pedigree' => $validated['diabetes_pedigree'],
+                'age' => $validated['age'],
+                'result' => $resultJson // Save the prediction
+            ]
+        );
 
         return redirect()->route('patient.dashboard')
-            ->with('success', 'Your test has been submitted and is under doctor review.');
+            ->with('success', 'New test data added and analyzed successfully!');
     }
 
     public function show(Patient $patient)

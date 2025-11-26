@@ -99,25 +99,24 @@ Route::middleware(['auth', 'can:doctor'])->group(function () {
 });
 
 
-// ======================================================
-// 🔹 PATIENT ROUTES (Clean, Final)
+// 🔹 PATIENT ROUTES (Full & Final)
 // ======================================================
 Route::middleware(['auth', 'can:patient'])->group(function () {
 
-    // Dashboard
+    // 1. Dashboard
     Route::get('/patient/dashboard', [PatientController::class, 'dashboard'])->name('patient.dashboard');
 
-    // 🧪 Disease Detection (ML)
+    // 2. Disease Detection (ML)
     Route::get('/patient/detection', [PatientController::class, 'showDetectionForm'])->name('patient.detection');
     Route::post('/patient/detection', [PatientController::class, 'storeDetection'])->name('patient.detection.store');
 
-    // 📅 Appointments
-    Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments');
+    // 3. 📅 Appointments (This was causing the error, now FIXED)
+    Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments.index'); // ✅ Fixed Name
     Route::get('/patient/appointments/create', [PatientController::class, 'createAppointment'])->name('patient.appointments.create');
     Route::post('/patient/appointments/store', [PatientController::class, 'storeAppointment'])->name('patient.appointments.store');
     Route::get('/patient/appointments/{appointment}', [PatientController::class, 'showAppointment'])->name('patient.appointments.show');
 
-    // 📄 Reports
+    // 4. Reports
     Route::get('/patient/report/{patient}', [PatientController::class, 'report'])->name('patient.report');
     Route::get('/patient/report/{patient}/download', [PatientController::class, 'downloadReport'])->name('patient.report.download');
 });
