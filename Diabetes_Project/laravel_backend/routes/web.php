@@ -131,8 +131,10 @@ Route::post('/patient/add-test', [PatientController::class, 'storeSimpleTest'])
     ->name('patient.simpletest.store');
 
 
-
-
+// Future work
+Route::get('/future-roadmap', function () {
+    return view('future_roadmap');
+})->name('future.roadmap');
 
 
 // ======================================================

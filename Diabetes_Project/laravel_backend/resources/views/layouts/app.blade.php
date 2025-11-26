@@ -219,8 +219,22 @@
                 @yield('content')
             </div>
 
-            <footer class="mt-auto py-3 text-center text-muted small border-top bg-white">
-                &copy; {{ date('Y') }} Diabetes Care AI System. All rights reserved.
+            <footer class="mt-auto py-4 border-top bg-white">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">
+                            &copy; {{ date('Y') }} Diabetes Care AI System. All rights reserved.
+                        </div>
+                        <div>
+                            <a href="#" class="text-decoration-none text-muted me-3">Privacy Policy</a>
+                            <a href="#" class="text-decoration-none text-muted me-3">Terms & Conditions</a>
+
+                            <a href="{{ route('future.roadmap') }}" class="text-primary fw-bold text-decoration-none">
+                                <i class="fa-solid fa-rocket me-1"></i> Future Roadmap
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </footer>
 
         </div>

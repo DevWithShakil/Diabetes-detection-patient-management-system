@@ -351,35 +351,7 @@
     </div>
   </section>
 
-  <section class="py-5">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-5" data-aos="fade-right">
-           <h2 class="fw-bold mb-3" style="color:var(--primary-dark);">Trusted by Families</h2>
-           <p class="text-muted">Don't just take our word for it. Hear from users who managed their health effectively.</p>
-           <button class="btn btn-outline-dark rounded-pill px-4 fw-bold">Read Stories</button>
-        </div>
-        <div class="col-lg-7">
-          <div class="row g-3">
-             <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
-               <div class="review-card">
-                 <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                 <p class="fst-italic small text-muted">"The prediction was spot on. I visited a doctor immediately and controlled my sugar levels early."</p>
-                 <div class="fw-bold text-dark">— Rahim Ahmed</div>
-               </div>
-             </div>
-             <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
-               <div class="review-card">
-                 <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                 <p class="fst-italic small text-muted">"The interface is so clean. I use it for my mother every month to track her records."</p>
-                 <div class="fw-bold text-dark">— Nusrat Jahan</div>
-               </div>
-             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <footer>
     <div class="container">
