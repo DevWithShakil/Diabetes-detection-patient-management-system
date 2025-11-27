@@ -22,7 +22,7 @@
                     <i class="fa-solid fa-user-doctor fs-4 text-white"></i>
                 </div>
                 <div>
-                    <h4 class="fw-bold mb-0">Dr. {{ auth()->user()->name }}</h4>
+                    <h4 class="fw-bold mb-0">{{ auth()->user()->name }}</h4>
                     <p class="mb-0 text-white-50 small">Clinical Dashboard & Patient Overview</p>
                 </div>
             </div>

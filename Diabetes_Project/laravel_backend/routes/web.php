@@ -55,7 +55,10 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     // User Management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users/add', [UserController::class, 'store'])->name('users.store');
-    Route::put('/users/{user}/update-role', [UserController::class, 'updateRole'])->name('users.updateRole');
+
+    // 🔴 FIX 1: Duplicate Route Name Detected. This route is now renamed to avoid conflict.
+    Route::put('/users/{user}/update-role', [UserController::class, 'updateRole'])->name('users.updateRoleV2');
+
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     // ✅ Patient Management (Full CRUD for admin)
@@ -81,9 +84,9 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
 
     // User Role Management
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+    // 🟢 Original Route Name Retained
     Route::put('users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
 });
-
 
 
 // ======================================================
