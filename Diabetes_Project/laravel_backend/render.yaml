@@ -1,24 +1,19 @@
 # render.yaml file
 services:
   - type: web
-    # Apnar Web Service-er nam
     name: diabetes-prediction-and-management-system
-
-    # Eita Render-ke bole je PHP environment use korte hobe
     env: php
-
-    # Apnar Git Repository URL (eita change koren na)
     repo: https://github.com/DevWithShakil/diabetes-detection-patient-management-system
     branch: main
 
-    # Eita ensure korbe shob dependencies install hochhe
-    buildCommand: "composer install"
+    # 🔴 FIX: Eita Render-ke bole dibe je code er root holo 'laravel_backend'
+    rootDir: laravel_backend
 
-    # Eita application-ke shuru korbe
+    buildCommand: "composer install"
     startCommand: "vendor/bin/heroku-php-apache2 public/"
 
     plan: free
-    region: oregon # Database-er shathe match korche
+    region: oregon
 
     # Environment Variables Section
     envVars:
