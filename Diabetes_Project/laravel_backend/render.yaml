@@ -1,0 +1,60 @@
+# render.yaml file
+services:
+  - type: web
+    # Apnar Web Service-er nam
+    name: diabetes-prediction-and-management-system
+
+    # Eita Render-ke bole je PHP environment use korte hobe
+    env: php
+
+    # Apnar Git Repository URL (eita change koren na)
+    repo: https://github.com/DevWithShakil/diabetes-detection-patient-management-system
+    branch: main
+
+    # Eita ensure korbe shob dependencies install hochhe
+    buildCommand: "composer install"
+
+    # Eita application-ke shuru korbe
+    startCommand: "vendor/bin/heroku-php-apache2 public/"
+
+    plan: free
+    region: oregon # Database-er shathe match korche
+
+    # Environment Variables Section
+    envVars:
+      # --- Core Application & API (Group A) ---
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        # Apnar ashol APP_KEY-ta din
+        value: "base64:P1i1mX8ZRMoWR6ubaiSoAUKfy/dq0n4GlAoibxyBwiU="
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        # Render-er automatic URL use kora holo
+        value: "$RENDER_EXTERNAL_URL"
+      - key: ML_API_URL
+        value: "https://diabetes-ml-ioool6dzv-devwithshakils-projects.vercel.app"
+
+      # --- Database & Session (Group B) ---
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: "dpg-d4jvlrm3jp1c738g1mn0-a" # Internal Host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        value: "diabetes_prediction_database"
+      - key: DB_USERNAME
+        value: "laravel_user"
+      - key: DB_PASSWORD
+        # Apnar ashol DB Password-ta din
+        value: "kVmlTGMvS6wU1p1qzJebOsl9cbAh46Hf"
+
+      # --- Caching & Queue (Group C) ---
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
