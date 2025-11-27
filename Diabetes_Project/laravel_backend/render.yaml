@@ -21,7 +21,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        # Apnar ashol APP_KEY-ta din
+
         value: "base64:P1i1mX8ZRMoWR6ubaiSoAUKfy/dq0n4GlAoibxyBwiU="
       - key: APP_DEBUG
         value: "false"

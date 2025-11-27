@@ -221,7 +221,7 @@
 
 <h1 class="hero-title">
     Smart Screening for <br>
-    <span style="background: linear-gradient(to right, var(--primary-brand), var(--accent-teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Better Diabetes Care.</span>
+    <span style="background: linear-gradient(to right, var(--primary-brand), var(--accent-teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Better Diabetes Care</span>
 </h1>
 
 <p class="hero-subtitle">
