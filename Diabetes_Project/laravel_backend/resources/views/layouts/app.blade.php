@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Diabetes Care') }}</title>
+    <title>@yield('title', $panelTitle ?? 'Dashboard') | Diabetes Care</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,90 +28,44 @@
 
         /* --- WRAPPER --- */
         #wrapper {
-            display: flex;
-            width: 100%;
-            align-items: stretch;
-            min-height: 100vh;
-            overflow: hidden;
+            display: flex; width: 100%; align-items: stretch; min-height: 100vh; overflow: hidden;
         }
 
-        /* --- SIDEBAR CONFIG (DEFAULT CLOSED) --- */
+        /* --- SIDEBAR CONFIG --- */
         #sidebar-wrapper {
-            min-width: var(--sidebar-width);
-            max-width: var(--sidebar-width);
-            background: var(--sidebar-bg);
-            color: #fff;
-            transition: margin 0.3s ease-out;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            z-index: 1000;
-
-            /* DEFAULT: HIDDEN (Negative Margin) */
+            min-width: var(--sidebar-width); max-width: var(--sidebar-width); background: var(--sidebar-bg);
+            color: #fff; transition: margin 0.3s ease-out; display: flex; flex-direction: column;
+            position: fixed; height: 100vh; z-index: 1000;
             margin-left: calc(-1 * var(--sidebar-width));
         }
 
         /* --- CONTENT AREA CONFIG --- */
         #page-content-wrapper {
-            width: 100%;
-            transition: margin 0.3s ease-out;
-            display: flex;
-            flex-direction: column;
-
-            /* DEFAULT: Full Width (No Margin) */
+            width: 100%; transition: margin 0.3s ease-out; display: flex; flex-direction: column;
             margin-left: 0;
         }
 
         /* --- TOGGLED STATE (OPEN) --- */
-        /* When 'toggled' class is added via JS, Sidebar Opens */
-        #wrapper.toggled #sidebar-wrapper {
-            margin-left: 0;
-        }
-
-        #wrapper.toggled #page-content-wrapper {
-            /* Pushes content when open (Desktop) */
-            margin-left: var(--sidebar-width);
-        }
+        #wrapper.toggled #sidebar-wrapper { margin-left: 0; }
+        #wrapper.toggled #page-content-wrapper { margin-left: var(--sidebar-width); }
 
         /* --- MOBILE BEHAVIOR --- */
         @media (max-width: 992px) {
-            /* Mobile Open State: Overlay Content (Don't push) */
-            #wrapper.toggled #page-content-wrapper {
-                margin-left: 0;
-            }
-
-            /* Optional: Add overlay background on mobile when open */
+            #wrapper.toggled #page-content-wrapper { margin-left: 0; }
             #wrapper.toggled #page-content-wrapper::before {
-                content: '';
-                position: fixed; top:0; left:0; right:0; bottom:0;
+                content: ''; position: fixed; top:0; left:0; right:0; bottom:0;
                 background: rgba(0,0,0,0.5); z-index: 999;
             }
         }
 
         /* --- SIDEBAR STYLING --- */
-        .sidebar-brand {
-            padding: 25px 25px; font-size: 1.3rem; font-weight: 800; color: #fff;
-            display: flex; align-items: center; gap: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05); text-decoration: none;
-        }
-        .sidebar-menu {
-            padding: 20px 15px; list-style: none; margin: 0; flex-grow: 1; overflow-y: auto;
-        }
+        .sidebar-brand { padding: 25px 25px; font-size: 1.3rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); text-decoration: none; }
+        .sidebar-menu { padding: 20px 15px; list-style: none; margin: 0; flex-grow: 1; overflow-y: auto; }
         .sidebar-menu li { margin-bottom: 4px; }
-        .sidebar-menu a {
-            display: flex; align-items: center; padding: 12px 15px;
-            color: var(--text-light); text-decoration: none; border-radius: 10px;
-            font-weight: 500; font-size: 0.95rem; transition: all 0.2s;
-        }
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background: var(--primary-color); color: #fff; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-        }
+        .sidebar-menu a { display: flex; align-items: center; padding: 12px 15px; color: var(--text-light); text-decoration: none; border-radius: 10px; font-weight: 500; font-size: 0.95rem; transition: all 0.2s; }
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: var(--primary-color); color: #fff; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3); }
         .sidebar-menu a i { width: 25px; font-size: 18px; margin-right: 10px; text-align: center; }
-        .sidebar-heading {
-            font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700;
-            padding: 20px 15px 10px; letter-spacing: 0.05em;
-        }
+        .sidebar-heading { font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; padding: 20px 15px 10px; letter-spacing: 0.05em; }
 
         /* --- TOP NAVBAR --- */
         .top-navbar {
@@ -189,7 +144,7 @@
                     <button class="btn btn-light border shadow-sm" id="menu-toggle">
                         <i class="fa-solid fa-bars"></i>
                     </button>
-                    <h5 class="mb-0 fw-bold text-dark d-none d-md-block">{{ $panelTitle }}</h5>
+                    <h5 class="mb-0 fw-bold text-dark d-none d-md-block">@yield('title', $panelTitle)</h5>
                 </div>
 
                 <div class="dropdown">
@@ -242,18 +197,52 @@
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
 
-    @if(session('success') || session('error'))
+    {{-- ✅ FIX: Consolidated Toast Logic for all message types --}}
+    @php
+        $message = session('success') ?? session('error') ?? session('warning') ?? session('info') ?? null;
+        $type = 'success'; // Default type
+
+        if (session()->has('error')) {
+            $type = 'error';
+        } elseif (session()->has('warning')) {
+            $type = 'warning';
+        } elseif (session()->has('info')) {
+            $type = 'info';
+        }
+
+        // Define color and icon based on determined type
+        $accentColor = match($type) {
+            'error' => '#ef4444',
+            'warning' => '#ff9f1c',
+            'info' => '#4361ee',
+            default => '#10b981', // success
+        };
+        $badgeClass = match($type) {
+            'error' => 'bg-danger text-danger',
+            'warning' => 'bg-warning text-dark',
+            'info' => 'bg-primary text-primary',
+            default => 'bg-success text-success',
+        };
+        $icon = match($type) {
+            'error' => 'fa-xmark',
+            'warning' => 'fa-triangle-exclamation',
+            'info' => 'fa-info-circle',
+            default => 'fa-check',
+        };
+    @endphp
+
+    @if($message)
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
         <div id="globalToast" class="toast align-items-center border-0 shadow-lg overflow-hidden show" role="alert" style="background: white; border-radius: 12px; min-width: 320px;">
             <div class="d-flex">
-                <div style="width: 6px; background: {{ session('error') ? '#ef4444' : '#10b981' }};"></div>
+                <div style="width: 6px; background: {{ $accentColor }};"></div>
                 <div class="toast-body d-flex align-items-center gap-3 py-3 w-100">
-                    <div class="{{ session('error') ? 'bg-danger text-danger' : 'bg-success text-success' }} bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
-                        <i class="fa-solid {{ session('error') ? 'fa-xmark' : 'fa-check' }}"></i>
+                    <div class="{{ $badgeClass }} bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 32px; height: 32px;">
+                        <i class="fa-solid {{ $icon }}"></i>
                     </div>
                     <div>
-                        <h6 class="mb-0 fw-bold text-dark">{{ session('error') ? 'Error' : 'Success' }}</h6>
-                        <small class="text-muted">{{ session('success') ?? session('error') }}</small>
+                        <h6 class="mb-0 fw-bold text-dark">{{ ucfirst($type) }}</h6>
+                        <small class="text-muted">{{ $message }}</small>
                     </div>
                     <button type="button" class="btn-close ms-auto me-2" data-bs-dismiss="toast"></button>
                 </div>
@@ -275,7 +264,10 @@
         // Auto Hide Toast
         document.addEventListener("DOMContentLoaded", function() {
             var toastEl = document.getElementById('globalToast');
-            if(toastEl){ setTimeout(() => { toastEl.classList.remove('show'); }, 4000); }
+            if(toastEl){
+                var toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+                toast.show();
+            }
         });
     </script>
 </body>
