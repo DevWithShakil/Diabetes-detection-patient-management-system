@@ -21,11 +21,8 @@
     </div>
 
     @php
-        // Prepare Data
         $result = json_decode($patient->result, true);
         $predictions = $result['predictions'] ?? [];
-
-        // Calculate Majority for "Overall Result"
         $diabeticCount = 0;
         $totalModels = count($predictions);
         foreach($predictions as $pred) {

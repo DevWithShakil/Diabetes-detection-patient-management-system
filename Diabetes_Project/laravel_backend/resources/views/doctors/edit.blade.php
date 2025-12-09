@@ -143,7 +143,6 @@
 </div>
 
 <style>
-    /* Premium Focus States */
     .form-control:focus, .form-select:focus {
         background-color: #fff !important;
         box-shadow: none;

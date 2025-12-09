@@ -16,7 +16,6 @@
         background-color: var(--bg-light);
     }
 
-    /* --- Welcome Banner --- */
     .welcome-banner {
         background: linear-gradient(135deg, #4361ee, #3f37c9);
         color: white;
@@ -32,7 +31,6 @@
         font-size: 150px; opacity: 0.1; transform: rotate(15deg);
     }
 
-    /* --- Stat Cards --- */
     .stat-card {
         background: #fff; border-radius: 16px; padding: 24px;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
@@ -48,7 +46,6 @@
     .stat-green { background: #ecfdf5; color: #10b981; }
     .stat-red { background: #fef2f2; color: #ef4444; }
 
-    /* --- Action Grid --- */
     .action-card {
         background: white; border-radius: 16px; padding: 25px;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); height: 100%;
@@ -66,7 +63,6 @@
     .action-btn:hover i { color: #4361ee; }
     .action-btn span { font-size: 13px; font-weight: 600; }
 
-    /* --- Table Styles --- */
     .custom-table-card {
         background: white; border-radius: 16px;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden;
@@ -82,7 +78,6 @@
 
 <div class="container py-4">
 
-    {{-- 1. Welcome Header --}}
     <div class="welcome-banner">
         <div class="position-relative z-1">
             <h2 class="fw-bold">Welcome back, {{ Auth::user()->name }}!</h2>
@@ -91,7 +86,6 @@
         <i class="fa-solid fa-notes-medical welcome-decoration"></i>
     </div>
 
-    {{-- 2. Key Metrics Row --}}
     <div class="row g-4 mb-4">
         <div class="col-md-4">
             <div class="stat-card">
@@ -122,9 +116,7 @@
         </div>
     </div>
 
-    {{-- 3. Split View: Charts & Actions --}}
     <div class="row g-4 mb-4">
-        {{-- Left: Accuracy Chart --}}
         <div class="col-lg-7">
             <div class="action-card d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -149,7 +141,7 @@
             </div>
         </div>
 
-        {{-- Right: Quick Actions (Grid) --}}
+
         <div class="col-lg-5">
             <div class="action-card">
                 <h5 class="fw-bold mb-4">Quick Management</h5>
@@ -194,7 +186,6 @@
         </div>
     </div>
 
-    {{-- 4. Recent Patients Table --}}
     <div class="custom-table-card p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h5 class="fw-bold mb-0">Recent Patient Activity</h5>
@@ -215,12 +206,12 @@
                 <tbody>
                     @forelse($patients as $patient)
                         @php
-                            // Decode JSON
+
                             $result = json_decode($patient->result, true);
                             $finalStatus = 'Pending';
                             $badgeClass = 'badge-soft-pending';
 
-                            // 🔥 VOTING LOGIC (Same as Patient Dashboard)
+
                             if (isset($result['predictions']) && is_array($result['predictions'])) {
                                 $votes = collect($result['predictions'])->map(fn($v) => strtolower(trim($v)));
                                 $diabeticCount = $votes->filter(fn($v) => $v === 'diabetic')->count();
@@ -289,7 +280,6 @@
 
     const ctx = document.getElementById('accuracyChart').getContext('2d');
 
-    // Premium Gradient
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
     gradient.addColorStop(0, 'rgba(67, 97, 238, 0.7)');
     gradient.addColorStop(1, 'rgba(67, 97, 238, 0.1)');

@@ -12,14 +12,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PatientController extends Controller
 {
-    // ======================================================
-    // 🔹 ADMIN PANEL METHODS (For managing patients)
-    // ======================================================
 
-    /**
-     * Admin: List all patients (patients.index)
-     * Path: resources/views/admin/patients/index.blade.php
-     */
+    //  Admin: List all patients
+
     public function index()
     {
         if (auth()->user()->role !== 'admin') abort(403);
@@ -27,28 +22,24 @@ class PatientController extends Controller
         return view('admin.patients.index', compact('patients'));
     }
 
-    /**
-     * Admin: Show form to create a new patient (patients.create)
-     * Path: resources/views/admin/patients/create.blade.php
-     */
+
+    //  Admin: Show form to create a new patient
+
     public function create()
     {
         if (auth()->user()->role !== 'admin') abort(403);
         return view('admin.patients.create');
     }
 
-    /**
-     * Admin: Store new patient data & Predict (patients.store)
-     * Calls storeAdminPrediction
-     */
+    //  Admin: Store new patient data & Predic
+
     public function store(Request $request)
     {
         return $this->storeAdminPrediction($request);
     }
 
-    /**
-     * Admin: Delete Patient (patients.destroy)
-     */
+    //  * Admin: Delete Patient
+
     public function destroy(Patient $patient)
     {
         if (Auth::user()->role !== 'admin') abort(403);
@@ -63,9 +54,8 @@ class PatientController extends Controller
             ->with('success', 'Patient record deleted successfully.');
     }
 
-    /**
-     * Admin: Show Patient Details (patients.show)
-     */
+
+    //  * Admin: Show Patient Details
     public function show(Patient $patient)
     {
         if (Auth::user()->role !== 'admin') abort(403);
@@ -75,9 +65,6 @@ class PatientController extends Controller
     public function edit(Patient $patient)
     {
         if (Auth::user()->role !== 'admin') abort(403);
-
-        // Ensure you have an 'edit' view file in the correct folder (e.g., admin/patients/edit.blade.php)
-        // I will assume the admin view path based on previous context.
         return view('admin.patients.edit', compact('patient'));
     }
 
@@ -86,7 +73,7 @@ class PatientController extends Controller
         // 1. Authorization Check
         if (Auth::user()->role !== 'admin') abort(403);
 
-        // 2. Validation (Matches the fields in your edit.blade.php)
+        // 2. Validation
         $validated = $request->validate([
             'name' => 'required|string',
             'age' => 'required|numeric',
@@ -99,7 +86,6 @@ class PatientController extends Controller
         ]);
 
         // 3. Get New Prediction from API
-        // We reuse the centralized prediction logic (which includes the API call and fallback)
         $resultJson = $this->getPredictionFromApi($validated);
 
         // 4. Update the Patient Record
@@ -112,20 +98,16 @@ class PatientController extends Controller
             'insulin' => $validated['insulin'],
             'bmi' => $validated['bmi'],
             'diabetes_pedigree' => $validated['diabetes_pedigree'],
-            'result' => $resultJson, // Save new prediction result
+            'result' => $resultJson,
         ]);
 
         return redirect()->route('patients.index')
             ->with('success', '✅ Patient record updated and AI re-analysis completed!');
     }
 
-    // ======================================================
-    // 🔹 PATIENT PANEL METHODS (For logged-in users)
-    // ======================================================
 
-    /**
-     * Patient: Dashboard (patient.dashboard)
-     */
+
+    //  Patient: Dashboard
     public function dashboard()
     {
         $patient = Patient::where('user_id', Auth::id())->latest()->first();
@@ -145,9 +127,8 @@ class PatientController extends Controller
         return view('patient.dashboard', compact('patient', 'nextAppointment', 'appointmentsCount'));
     }
 
-    /**
-     * Patient: List Appointments (patient.appointments.index)
-     */
+    //  Patient: List Appointments
+
     public function appointments()
     {
         $patient = Patient::where('user_id', Auth::id())->latest()->first();
@@ -164,18 +145,18 @@ class PatientController extends Controller
         return view('patient.appointments.index', compact('appointments'));
     }
 
-    /**
-     * Patient: Show Create Appointment Form (patient.appointments.create)
-     */
+
+    //  Patient: Show Create Appointment Form
+
     public function createAppointment()
     {
         $doctors = User::where('role', 'doctor')->get();
         return view('patient.appointments.create', compact('doctors'));
     }
 
-    /**
-     * Patient: Store Appointment (patient.appointments.store)
-     */
+
+    //  Patient: Store Appointment
+
     public function storeAppointment(Request $request)
     {
         $request->validate([
@@ -204,9 +185,8 @@ class PatientController extends Controller
             ->with('success', 'Appointment request sent successfully! Wait for approval.');
     }
 
-    /**
-     * Patient: Show Single Appointment Details (patient.appointments.show)
-     */
+    //  Patient: Show Single Appointment Details
+
     public function showAppointment($id)
     {
         $patient = Patient::where('user_id', Auth::id())->latest()->first();
@@ -219,18 +199,17 @@ class PatientController extends Controller
         return view('patient.appointments.show', compact('appointment'));
     }
 
-    /**
-     * Patient: Show Test/Update Form (patient.simpletest)
-     */
+
+    //  Patient: Show Test/Update Form
+
     public function showSimpleTestForm()
     {
         $patient = Patient::where('user_id', auth()->id())->latest()->first();
         return view('patient.test_form', compact('patient'));
     }
 
-    /**
-     * Patient: Store Test Data & Generate Prediction (patient.simpletest.store)
-     */
+    // Patient: Store Test Data & Generate Prediction
+
     public function storeSimpleTest(Request $request)
     {
         $validated = $request->validate([
@@ -264,13 +243,10 @@ class PatientController extends Controller
             ->with('success', 'Health data updated & analyzed by AI Core!');
     }
 
-    // ======================================================
-    // 🔹 HELPER & SHARED METHODS (API, Admin Store)
-    // ======================================================
 
-    /**
-     * Admin: Store Patient Data & Redirect to Appointment
-     */
+
+    //  Admin: Store Patient Data & Redirect to Appointment
+
     public function storeAdminPrediction(Request $request)
     {
         $validated = $request->validate([
@@ -303,9 +279,8 @@ class PatientController extends Controller
             ->with('success', 'Patient analyzed via AI API! Proceed to booking.');
     }
 
-    /**
-     * 🔥 CENTRALIZED API CALL LOGIC (5 Models)
-     */
+    // CENTRALIZED API CALL LOGIC (5 Models)
+
     private function getPredictionFromApi($data)
     {
         $apiUrl = env('ML_API_URL') . '/predict';
@@ -328,7 +303,7 @@ class PatientController extends Controller
                 return json_encode($response->json());
             }
         } catch (\Exception $e) {
-            // Fallback needed if API fails
+
         }
 
         // 2. Fallback Mock Logic (5 Models - Match Python names: LR, RF, SVM, KNN, DT)
@@ -356,25 +331,22 @@ class PatientController extends Controller
         ]);
     }
 
-    /**
-     * Download PDF Report
-     */
+
+    //   Download PDF Report
+
     public function downloadReport(Patient $patient)
 {
     if (Auth::user()->role !== 'admin' && $patient->user_id !== Auth::id()) {
         abort(403);
     }
 
-    // ✅ CHANGE: Pointing to the new, simple patient-facing PDF view
     $pdf = Pdf::loadView('patient.reports.care_plan_pdf', ['patient' => $patient]);
-
-    // We are renaming the output file to reflect it's a patient summary
     return $pdf->download('Care_Plan_Summary_' . $patient->name . '.pdf');
 }
 
-    /**
-     * Initial Detection Form (Redirects if exists)
-     */
+
+    //   Initial Detection Form (Redirects if exists)
+
     public function showDetectionForm()
     {
         $user = Auth::user();

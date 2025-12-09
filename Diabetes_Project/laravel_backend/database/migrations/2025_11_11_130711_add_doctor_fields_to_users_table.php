@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // ✅ Add new columns for doctors
             $table->string('specialization')->nullable()->after('role');
             $table->string('phone')->nullable()->after('specialization');
         });

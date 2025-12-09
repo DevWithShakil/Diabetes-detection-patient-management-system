@@ -131,7 +131,6 @@
 </div>
 
 <style>
-    /* Avatar Style */
     .avatar-circle {
         width: 40px; height: 40px;
         background: linear-gradient(135deg, #4361ee, #3f37c9);
@@ -141,7 +140,6 @@
         box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
     }
 
-    /* Icon Buttons */
     .btn-icon {
         width: 32px; height: 32px; padding: 0;
         display: flex; align-items: center; justify-content: center;
@@ -149,12 +147,10 @@
     }
     .btn-icon:hover { transform: translateY(-2px); }
 
-    /* Table Hover */
     .table-hover tbody tr:hover { background-color: #f8faff; transition: all 0.2s; }
 </style>
 
 <script>
-    // Tooltips Init
     document.addEventListener("DOMContentLoaded", function() {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

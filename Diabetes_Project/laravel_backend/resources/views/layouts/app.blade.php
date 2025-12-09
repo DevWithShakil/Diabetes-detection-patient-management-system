@@ -99,7 +99,7 @@
 
         <div id="sidebar-wrapper">
             <a href="{{ $dashboardRoute }}" class="sidebar-brand">
-                <i class="fa-solid fa-heart-pulse text-primary"></i> <span>DiabetesCare</span>
+                <i class="fa-solid fa-heart-pulse text-primary"></i> <span>{{ $panelTitle }}</span>
             </a>
 
             <ul class="sidebar-menu">
@@ -178,7 +178,7 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">
-                            &copy; {{ date('Y') }} Diabetes Care AI System. All rights reserved.
+                            &copy; {{ date('Y') }} Diabetes Prediction & Management System. All rights reserved.
                         </div>
                         <div>
                             <a href="#" class="text-decoration-none text-muted me-3">Privacy Policy</a>
@@ -197,7 +197,7 @@
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
 
-    {{-- ✅ FIX: Consolidated Toast Logic for all message types --}}
+    {{--  FIX: Consolidated Toast Logic for all message types --}}
     @php
         $message = session('success') ?? session('error') ?? session('warning') ?? session('info') ?? null;
         $type = 'success'; // Default type

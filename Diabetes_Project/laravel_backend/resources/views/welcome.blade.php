@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Diabetes Care | AI Powered Health</title>
+  <title>Diabetes Prediction | Management System</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,11 +19,10 @@
 
   <style>
     :root {
-      /* Premium Palette */
-      --primary-dark: #0f172a;       /* Deep Navy */
-      --primary-brand: #3b82f6;      /* Bright Royal Blue */
-      --accent-teal: #14b8a6;        /* Medical Teal */
-      --bg-surface: #f8fafc;         /* Very Light Grey-Blue */
+      --primary-dark: #0f172a;
+      --primary-brand: #3b82f6;
+      --accent-teal: #14b8a6;
+      --bg-surface: #f8fafc;
       --text-main: #334155;
       --text-muted: #64748b;
       --glass-border: rgba(255, 255, 255, 0.6);
@@ -38,7 +37,6 @@
       overflow-x: hidden;
     }
 
-    /* --- Navbar Glass Effect --- */
     .navbar {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
@@ -68,13 +66,11 @@
     }
     .btn-premium:hover { background: #1e293b; transform: translateY(-2px); color: #fff; }
 
-    /* --- Hero Section --- */
     .hero-section {
       position: relative;
       padding: 100px 0 60px;
       overflow: hidden;
     }
-    /* Abstract Background Blur blobs */
     .bg-blob {
       position: absolute; width: 500px; height: 500px;
       background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(255,255,255,0) 70%);
@@ -106,7 +102,6 @@
     .stat-pill i { color: var(--accent-teal); }
     .stat-pill strong { color: var(--primary-dark); }
 
-    /* --- Bento Grid Features --- */
     .bento-card {
       background: white;
       border-radius: 24px;
@@ -128,7 +123,6 @@
     .icon-teal { background: #f0fdfa; color: var(--accent-teal); }
     .icon-purple { background: #f5f3ff; color: #8b5cf6; }
 
-    /* --- Process Steps --- */
     .step-card {
       text-align: center; position: relative; z-index: 2;
       background: white; padding: 25px; border-radius: 20px;
@@ -140,20 +134,17 @@
       margin: 0 auto 15px;
     }
 
-    /* --- Testimonials --- */
     .review-card {
       background: white; padding: 30px; border-radius: 20px;
       border-left: 4px solid var(--primary-brand);
       box-shadow: var(--shadow-soft);
     }
 
-    /* --- Footer --- */
     footer { background: var(--primary-dark); color: #94a3b8; padding: 60px 0 30px; }
     footer h5 { color: white; font-weight: 700; margin-bottom: 20px; }
     footer a { color: #cbd5e1; text-decoration: none; transition: 0.2s; }
     footer a:hover { color: var(--primary-brand); }
 
-    /* --- Modal Tweaks to match theme --- */
     .auth-modal .modal-content { border-radius: 24px; border: none; }
     .auth-tabs button {
       border: none; background: transparent; padding: 10px 20px;
@@ -174,7 +165,7 @@
 
     @media (max-width: 991px) {
       .hero-title { font-size: 2.5rem; }
-      .hero-img-col { display: none; } /* Hide visual on mobile to clean up */
+      .hero-img-col { display: none; }
     }
   </style>
 </head>
@@ -188,8 +179,8 @@
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
         <div class="brand-logo"><i class="fa-solid fa-heart-pulse"></i></div>
         <div style="line-height:1.1">
-          <div style="font-weight:800; font-size:18px; color:var(--primary-dark);">DiabetesCare</div>
-          <div style="font-size:11px; font-weight:600; color:var(--accent-teal); letter-spacing:0.5px;">AI MEDTECH</div>
+          <div style="font-weight:800; font-size:18px; color:var(--primary-dark);">Diabetic Prediction &</div>
+          <div style="font-size:11px; font-weight:600; color:var(--accent-teal); letter-spacing:0.5px;">Management System</div>
         </div>
       </a>
 
@@ -232,21 +223,6 @@
             <button class="btn btn-premium" data-bs-toggle="modal" data-bs-target="#authModal">Check Your Risk Now</button>
             <a href="#how-it-works" class="btn btn-light" style="border-radius:50px; padding:10px 24px; font-weight:600; color:var(--text-main);">How it works</a>
           </div>
-
-          {{-- <div class="d-flex flex-wrap">
-            <div class="stat-pill">
-              <i class="fa-solid fa-user-check"></i>
-              <span><strong>15k+</strong> Patients</span>
-            </div>
-            <div class="stat-pill">
-              <i class="fa-solid fa-bullseye"></i>
-              <span><strong>98%</strong> Accuracy</span>
-            </div>
-            <div class="stat-pill">
-              <i class="fa-solid fa-user-doctor"></i>
-              <span><strong>Verified</strong> Doctors</span>
-            </div>
-          </div> --}}
         </div>
 
         <div class="col-lg-6 hero-img-col" data-aos="fade-left">
@@ -300,7 +276,7 @@
               <div class="col-7">
                 <h4 style="font-weight:700; color:white;">Secure Health Vault</h4>
                 <p style="opacity:0.8;">Your data is encrypted. Track your glucose history over months and see visual progress charts.</p>
-                <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold mt-2">Start Tracking</button>
+                 <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold mt-2" data-bs-toggle="modal" data-bs-target="#authModal">Start Tracking</button>
               </div>
               <div class="col-5 text-end">
                 <i class="fa-solid fa-shield-halved fa-4x" style="opacity:0.2;"></i>
@@ -364,7 +340,7 @@
         <div class="col-lg-4">
           <div class="d-flex align-items-center gap-2 mb-3 text-white">
             <i class="fa-solid fa-heart-pulse fa-lg text-primary"></i>
-            <span class="h5 mb-0">DiabetesCare</span>
+            <span class="h5 mb-0">Diabetic Prediction & Management System</span>
           </div>
           <p class="small opacity-75">Empowering patients with AI-driven insights for a healthier tomorrow.</p>
         </div>
@@ -393,7 +369,7 @@
         </div>
       </div>
       <div class="border-top border-secondary border-opacity-25 mt-5 pt-4 text-center small opacity-50">
-        &copy; <span id="year"></span> Diabetes Care System. All rights reserved.
+        &copy; <span id="year"></span> Diabetic Prediction & Management System. All rights reserved.
       </div>
     </div>
   </footer>
@@ -479,13 +455,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
   <script>
-    // Year Script
     document.getElementById('year').innerText = new Date().getFullYear();
-
-    // AOS Init
     AOS.init({ duration: 800, once: true, offset: 50 });
 
-    // AUTH TABS LOGIC (PRESERVED)
     const tabLogin = document.getElementById('authTabLogin');
     const tabRegister = document.getElementById('authTabRegister');
     const authLogin = document.getElementById('authLogin');
@@ -500,7 +472,6 @@
       authRegister.style.display = 'block'; authLogin.style.display = 'none';
     };
 
-    // Laravel Error Handling Logic (Preserved)
     @if($errors->any())
       var authModal = new bootstrap.Modal(document.getElementById('authModal'));
       authModal.show();

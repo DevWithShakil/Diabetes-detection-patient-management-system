@@ -13,7 +13,7 @@ return new class extends Migration
     {
        Schema::create('model_stats', function (Blueprint $table) {
             $table->id();
-            $table->string('model_name'); // e.g. 'Random Forest'
+            $table->string('model_name');
             $table->decimal('accuracy',5,2)->nullable();
             $table->integer('runs')->default(0);
             $table->timestamps();

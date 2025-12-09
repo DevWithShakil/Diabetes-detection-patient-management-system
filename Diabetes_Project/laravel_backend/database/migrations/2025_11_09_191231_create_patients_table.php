@@ -21,8 +21,6 @@ return new class extends Migration
             $table->float('diabetes_pedigree');
             $table->json('result')->nullable();
             $table->timestamps();
-
-            // ✅ define foreign key constraint AFTER the column
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

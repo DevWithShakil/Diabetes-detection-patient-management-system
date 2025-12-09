@@ -22,8 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'specialization', // ✅ add this
-        'phone',         // ✅ add this
+        'specialization',
+        'phone',
     ];
 
     /**
@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     static::creating(function ($user) {
         if (empty($user->role)) {
-            $user->role = 'patient'; // default role for registration
+            $user->role = 'patient';
         }
     });
 }

@@ -98,9 +98,8 @@ class DoctorController extends Controller
     }
 
 
-    // ================================
     //       DOCTOR DASHBOARD
-    // ================================
+
     public function dashboard()
     {
         $doctorId = auth()->id();
@@ -112,13 +111,10 @@ class DoctorController extends Controller
                     $q->orderBy('created_at', 'desc');
                 }
             ])
-            ->orderBy('created_at', 'desc')   // NEW → Latest appointments first
+            ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($appointment) {
-                // Ensure doctor notes collection exists
                 $appointment->notes = $appointment->notes ?? collect();
-
-                // Attach patient diabetic status (0/1/null)
                 $report = json_decode($appointment->patient->result, true);
                 $appointment->diabetic = $report['prediction'] ?? null;
 

@@ -151,7 +151,6 @@
 @endif
 
 <style>
-    /* Styling Updates */
     .avatar-circle {
         width: 38px; height: 38px;
         background: linear-gradient(135deg, #10b981, #059669); /* Medical Green Gradient */
@@ -177,14 +176,12 @@
 </style>
 
 <script>
-    // Initialize Tooltips
     document.addEventListener("DOMContentLoaded", function() {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 
-        // Toast Auto Hide
         var toastEl = document.getElementById('successToast');
         if(toastEl){ setTimeout(() => { toastEl.classList.remove('show'); }, 4000); }
     });

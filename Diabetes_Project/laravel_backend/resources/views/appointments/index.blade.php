@@ -137,7 +137,6 @@
 @endif
 
 <style>
-    /* Avatar Styling */
     .avatar-circle {
         width: 38px; height: 38px;
         background: linear-gradient(135deg, #4361ee, #3f37c9);
@@ -147,13 +146,11 @@
         box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
     }
 
-    /* Table Hover Effect */
     .table-hover tbody tr:hover {
         background-color: #f8faff;
         transition: all 0.2s ease;
     }
 
-    /* Icon Button */
     .btn-icon {
         width: 32px; height: 32px; padding: 0;
         display: flex; align-items: center; justify-content: center;
@@ -161,7 +158,6 @@
     }
     .btn-icon:hover { background-color: #fee2e2; color: #dc2626; }
 
-    /* Custom Form Select */
     .form-select-sm:focus {
         border-color: #4361ee;
         box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
@@ -169,7 +165,6 @@
 </style>
 
 <script>
-    // Initialize Tooltips & Toast
     document.addEventListener("DOMContentLoaded", function() {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

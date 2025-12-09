@@ -133,7 +133,6 @@
 </div>
 
 <style>
-    /* Focus States */
     .form-control:focus, .form-select:focus, textarea:focus {
         background-color: #fff !important;
         box-shadow: none;

@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // ✅ Admin user
+        // Admin user
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // ✅ Doctor user
+        //  Doctor user
         User::create([
             'name' => 'Dr. Tareq Hasan',
             'email' => 'doctor@example.com',
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'doctor',
         ]);
 
-        // ✅ Patient user (optional)
+        //  Patient user (optional)
         User::create([
             'name' => 'Ruma Akter',
             'email' => 'patient@example.com',

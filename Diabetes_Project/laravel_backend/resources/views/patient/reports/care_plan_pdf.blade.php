@@ -64,7 +64,7 @@
 
         @else
             <div class="result-box result-healthy">
-                <div class="result-title">✅ Low Risk (Healthy Status)</div>
+                <div class="result-title">Low Risk (Healthy Status)</div>
                 <p style="margin-top: 5px;">Your vitals are currently within the safe range. Keep up the good work!</p>
             </div>
 

@@ -12,7 +12,7 @@ use App\Mail\AppointmentMail;
 class AppointmentController extends Controller
 {
     /**
-     * 🔹 Show All Appointments (Admin Panel)
+     *  Show All Appointments (Admin Panel)
      */
     public function index()
     {
@@ -24,12 +24,12 @@ class AppointmentController extends Controller
     }
 
     /**
-     * 🔹 Show Create Appointment Form
+     * Show Create Appointment Form
      */
     public function create()
     {
-        $patients = Patient::with('user')->get(); // ✅ patients table
-        $doctors = User::where('role', 'doctor')->get(); // ✅ only doctors
+        $patients = Patient::with('user')->get();
+        $doctors = User::where('role', 'doctor')->get();
 
         return view('appointments.create', compact('patients', 'doctors'));
     }
@@ -49,41 +49,40 @@ class AppointmentController extends Controller
 
         $validated['status'] = 'pending';
 
-        // ✅ Create appointment
+        //  Create appointment
         $appointment = Appointment::create($validated);
 
-        // ✅ Send email (optional)
+        // Send email (optional)
         try {
             $doctor = User::find($validated['doctor_id']);
             if ($doctor && $doctor->email) {
                 Mail::to($doctor->email)->send(new AppointmentMail($appointment));
             }
         } catch (\Exception $e) {
-            // If mail fails, just log or ignore silently
             \Log::error("Mail not sent: " . $e->getMessage());
         }
 
         return redirect()->route('appointments.index')
-            ->with('success', '✅ Appointment created successfully!');
+            ->with('success', ' Appointment created successfully!');
     }
 
     /**
-     * 🔹 Update appointment status
+     *  Update appointment status
      */
     public function updateStatus(Request $request, Appointment $appointment)
     {
         $request->validate(['status' => 'required|string|in:pending,approved,cancelled,completed']);
         $appointment->update(['status' => $request->status]);
 
-        return back()->with('success', '✅ Appointment status updated!');
+        return back()->with('success', ' Appointment status updated!');
     }
 
     /**
-     * 🔹 Delete appointment
+     *  Delete appointment
      */
     public function destroy(Appointment $appointment)
     {
         $appointment->delete();
-        return back()->with('success', '🗑️ Appointment deleted successfully!');
+        return back()->with('success', 'Appointment deleted successfully!');
     }
 }

@@ -19,12 +19,10 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        // 🔹 1. Dashboard Stats
         $totalPatients = Patient::count();
         $totalDoctors = User::where('role', 'doctor')->count();
         $totalPredictions = Patient::whereNotNull('result')->count();
 
-        // 🔹 2. Define Target Models (Short Names for Chart)
         $chartData = [
             'Decision Tree' => 0,
             'Random Forest' => 0,
@@ -33,15 +31,12 @@ class AdminController extends Controller
             'Logistic Regression' => 0
         ];
 
-        // 🔹 3. Fetch last prediction record
         $latestPatient = Patient::orderBy('id', 'desc')->first();
 
         if ($latestPatient && $latestPatient->result) {
             $result = json_decode($latestPatient->result, true);
             $accuracies = $result['accuracies'] ?? [];
 
-            // 🔥 SMART MAPPING LOGIC (Fixes the issue)
-            // We check for both "Short Name" and "Long Name" from Database
 
             // 1. Decision Tree
             if(isset($accuracies['Decision Tree']))
@@ -69,8 +64,7 @@ class AdminController extends Controller
             if(isset($accuracies['Logistic Regression'])) {
                 $chartData['Logistic Regression'] = round($accuracies['Logistic Regression'], 2);
             } elseif(isset($accuracies['Naive Bayes'])) {
-                // If you used mock data previously which had Naive Bayes
-                // We map it to this key just to show data, or rename key to 'Naive Bayes'
+
                 $chartData['Logistic Regression'] = round($accuracies['Naive Bayes'], 2);
             }
         }

@@ -24,10 +24,10 @@
 
         /* --- Header Section --- */
         .header {
-            background-color: #0f172a; /* Deep Navy */
+            background-color: #0f172a;
             color: #ffffff;
             padding: 30px 40px;
-            border-bottom: 5px solid #3b82f6; /* Accent Blue */
+            border-bottom: 5px solid #3b82f6;
         }
         .header-table {
             width: 100%;
@@ -211,7 +211,6 @@
     <div class="content">
 
         @php
-            // Safe JSON decoding
             $result = is_array($patient->result) ? $patient->result : json_decode($patient->result, true);
         @endphp
 

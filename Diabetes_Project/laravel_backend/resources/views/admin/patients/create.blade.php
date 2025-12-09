@@ -139,7 +139,6 @@
 </div>
 
 <style>
-    /* Premium Focus Effects */
     .form-control:focus {
         border-color: #4361ee;
         box-shadow: none;

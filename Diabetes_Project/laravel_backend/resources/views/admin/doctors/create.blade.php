@@ -91,7 +91,6 @@
 </div>
 
 <style>
-    /* Custom input/select focus style for premium feel */
     .form-control:focus, .form-select:focus {
         background-color: #fff !important;
         box-shadow: none;

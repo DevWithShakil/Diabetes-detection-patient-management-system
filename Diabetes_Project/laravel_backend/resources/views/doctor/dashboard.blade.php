@@ -259,13 +259,11 @@
     .btn-icon { width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: 0.2s; }
     .btn-icon:hover { background: #f1f5f9; transform: scale(1.05); }
 
-    /* Input Focus */
     .form-control:focus { box-shadow: none; border-color: #4361ee; }
     .input-group:focus-within .input-group-text { border-color: #4361ee; }
 </style>
 
 <script>
-    // Tooltips Init
     document.addEventListener("DOMContentLoaded", function() {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

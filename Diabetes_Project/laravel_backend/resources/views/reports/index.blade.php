@@ -43,7 +43,6 @@
                                     $res = json_decode($patient->result, true);
                                     $finalPrediction = $res['predictions']['Decision Tree'] ?? $res['status'] ?? 'N/A';
 
-                                    // Logic for Badge Color
                                     $badgeClass = 'bg-secondary text-secondary';
                                     $icon = 'fa-circle-question';
 
@@ -142,7 +141,6 @@
 @endif
 
 <style>
-    /* Avatar Style */
     .avatar-circle {
         width: 35px; height: 35px;
         background: linear-gradient(135deg, #6366f1, #4f46e5);
@@ -152,7 +150,6 @@
         box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
     }
 
-    /* Icon Buttons */
     .btn-icon {
         width: 32px; height: 32px; padding: 0;
         display: flex; align-items: center; justify-content: center;
@@ -160,13 +157,11 @@
     }
     .btn-icon:hover { transform: translateY(-2px); }
 
-    /* Table Hover */
     .table-hover tbody tr:hover { background-color: #f8faff; transition: all 0.2s; }
 </style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)

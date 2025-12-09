@@ -111,7 +111,7 @@
 
         @if($finalPrediction === 'Diabetic')
             <div class="result-box result-diabetic">
-                <div class="result-title">⚠️ Indication: High Risk of Diabetes</div>
+                <div class="result-title">Indication: High Risk of Diabetes</div>
                 <div class="result-desc">
                     Based on your provided vitals, our analysis suggests a high probability of diabetes.
                     Please consult with your assigned doctor for further clinical tests.
@@ -131,7 +131,7 @@
 
         @elseif($finalPrediction === 'Non-Diabetic')
             <div class="result-box result-healthy">
-                <div class="result-title">✅ Result: Low Risk (Non-Diabetic)</div>
+                <div class="result-title"> Result: Low Risk (Non-Diabetic)</div>
                 <div class="result-desc">
                     Great news! Your vitals indicate a healthy range.
                     However, maintaining a healthy lifestyle is key to prevention.

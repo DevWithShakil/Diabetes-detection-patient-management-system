@@ -138,7 +138,6 @@
 </div>
 
 <style>
-    /* Form Styling */
     .form-control:focus { background-color: #fff !important; box-shadow: none; border: 1px solid #4361ee !important; }
     .input-group:focus-within .input-group-text { background-color: #fff !important; border-color: #4361ee; color: #4361ee !important; }
     .input-group-text { transition: all 0.3s; }

@@ -12,12 +12,12 @@ use App\Http\Controllers\{
     AppointmentController
 };
 
-// 🔹 Public Route
+//  Public Route
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 🔹 Common Authenticated Routes (Everyone logged in)
+//  Common Authenticated Routes (Everyone logged in)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $role = auth()->user()->role;
@@ -32,16 +32,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         }
     })->name('dashboard');
 
-    // 🔸 Profile Management
+    //  Profile Management
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
-// ======================================================
-// 🔹 ADMIN ROUTES
-// ======================================================
+//  ADMIN ROUTES
 Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::post('/predict', [PatientController::class, 'storeDetection'])->name('predict');
 
@@ -55,13 +53,11 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     // User Management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users/add', [UserController::class, 'store'])->name('users.store');
-
-    // 🔴 FIX 1: Duplicate Route Name Detected. This route is now renamed to avoid conflict.
     Route::put('/users/{user}/update-role', [UserController::class, 'updateRole'])->name('users.updateRoleV2');
 
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    // ✅ Patient Management (Full CRUD for admin)
+    // Patient Management (Full CRUD for admin)
     Route::get('patients', [PatientController::class, 'index'])->name('patients.index');
     Route::get('patients/create', [PatientController::class, 'create'])->name('patients.create');
     Route::post('patients', [PatientController::class, 'store'])->name('patients.store');
@@ -70,7 +66,7 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::put('patients/{patient}', [PatientController::class, 'update'])->name('patients.update');
     Route::delete('patients/{patient}', [PatientController::class, 'destroy'])->name('patients.destroy');
 
-    // ✅ Report & Download
+    // Report & Download
     Route::get('patients/{patient}/report', [AdminController::class, 'downloadReport'])->name('patients.report');
     Route::get('patients/{patient}/download', [PatientController::class, 'downloadReport'])->name('patients.download');
 
@@ -84,14 +80,14 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
 
     // User Role Management
     Route::get('users', [UserController::class, 'index'])->name('users.index');
-    // 🟢 Original Route Name Retained
+
+    // Original Route Name Retained
     Route::put('users/{user}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
 });
 
 
-// ======================================================
-// 🔹 DOCTOR ROUTES
-// ======================================================
+//  DOCTOR ROUTES
+
 Route::middleware(['auth', 'can:doctor'])->group(function () {
 
     Route::get('/doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard');
@@ -102,8 +98,7 @@ Route::middleware(['auth', 'can:doctor'])->group(function () {
 });
 
 
-// 🔹 PATIENT ROUTES (Full & Final)
-// ======================================================
+//  PATIENT ROUTES
 Route::middleware(['auth', 'can:patient'])->group(function () {
 
     // 1. Dashboard
@@ -113,8 +108,8 @@ Route::middleware(['auth', 'can:patient'])->group(function () {
     Route::get('/patient/detection', [PatientController::class, 'showDetectionForm'])->name('patient.detection');
     Route::post('/patient/detection', [PatientController::class, 'storeDetection'])->name('patient.detection.store');
 
-    // 3. 📅 Appointments (This was causing the error, now FIXED)
-    Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments.index'); // ✅ Fixed Name
+    // 3. Appointments
+    Route::get('/patient/appointments', [PatientController::class, 'appointments'])->name('patient.appointments.index');
     Route::get('/patient/appointments/create', [PatientController::class, 'createAppointment'])->name('patient.appointments.create');
     Route::post('/patient/appointments/store', [PatientController::class, 'storeAppointment'])->name('patient.appointments.store');
     Route::get('/patient/appointments/{appointment}', [PatientController::class, 'showAppointment'])->name('patient.appointments.show');
@@ -140,16 +135,13 @@ Route::get('/future-roadmap', function () {
 })->name('future.roadmap');
 
 
-// ======================================================
-// 🔹 LOGOUT
-// ======================================================
+//  LOGOUT
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/login');
 })->name('logout');
 
 
-// ======================================================
-// 🔹 AUTH ROUTES
-// ======================================================
+//  AUTH ROUTES
+
 require __DIR__ . '/auth.php';

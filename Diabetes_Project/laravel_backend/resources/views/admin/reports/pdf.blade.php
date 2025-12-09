@@ -7,26 +7,26 @@
         @font-face { font-family: 'Roboto'; src: url('https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxK.woff2') format('woff2'); }
         body { font-family: 'Roboto', sans-serif; font-size: 12px; color: #333; line-height: 1.5; }
 
-        /* Layout & Headers */
+
         .header { background: #1e293b; color: white; padding: 20px; text-align: center; margin-bottom: 30px; }
         .header h1 { margin: 0; font-size: 20px; text-transform: uppercase; }
         .section-title { font-size: 14px; font-weight: bold; border-bottom: 2px solid #3b82f6; padding-bottom: 5px; margin-bottom: 15px; color: #1e40af; text-transform: uppercase; }
 
-        /* Tables */
+
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         th, td { padding: 10px; border: 1px solid #e2e8f0; text-align: left; }
         th { background: #f1f5f9; color: #475569; }
 
-        /* Badges & Bars */
+
         .badge { padding: 4px 8px; border-radius: 4px; color: white; font-weight: bold; font-size: 10px; }
         .bg-danger { background: #ef4444; } .bg-success { background: #10b981; }
         .progress-bg { background: #e2e8f0; height: 8px; width: 100%; border-radius: 4px; }
         .progress-bar { height: 100%; background: #3b82f6; border-radius: 4px; }
 
-        /* Page Break */
+
         .page-break { page-break-after: always; }
 
-        /* Advice Box */
+
         .advice-box { background: #f8fafc; padding: 20px; border: 1px solid #cbd5e1; border-radius: 8px; }
         .advice-list li { margin-bottom: 8px; }
     </style>
@@ -37,7 +37,7 @@
         $result = json_decode($patient->result, true);
         $accuracies = $result['accuracies'] ?? [];
 
-        // Voting Logic to determine final status
+
         $finalPrediction = 'Pending';
         if (isset($result['predictions']) && is_array($result['predictions'])) {
             $votes = collect($result['predictions'])->map(fn($v) => strtolower(trim($v)));

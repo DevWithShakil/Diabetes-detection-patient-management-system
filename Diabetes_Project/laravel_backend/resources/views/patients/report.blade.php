@@ -17,7 +17,6 @@
             line-height: 1.6;
         }
 
-        /* --- Header --- */
         .header-bar {
             background: #0d6efd;
             color: white;
@@ -39,12 +38,10 @@
             margin: 5px 0 0; font-size: 12px; opacity: 0.8;
         }
 
-        /* --- Main Container --- */
         .container {
             padding: 40px;
         }
 
-        /* --- Section Titles --- */
         .section-title {
             font-size: 16px;
             font-weight: 700;
@@ -57,7 +54,6 @@
         }
         .section-title:first-child { margin-top: 0; }
 
-        /* --- Patient Info Grid (Modern) --- */
         .info-grid {
             display: table; width: 100%; border-collapse: collapse; margin-bottom: 30px;
         }
@@ -73,7 +69,6 @@
             font-size: 14px; font-weight: 600; color: #1e293b;
         }
 
-        /* --- Tables (Modern) --- */
         .modern-table {
             width: 100%; border-collapse: collapse; margin-top: 15px;
         }
@@ -87,14 +82,12 @@
         }
         .modern-table tr:last-child td { border-bottom: none; }
 
-        /* --- Status Badges --- */
         .badge {
             padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase;
         }
         .badge-diabetic { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
         .badge-healthy { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
 
-        /* --- Footer --- */
         .footer-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: #f8fafc; padding: 20px 40px;
@@ -157,7 +150,6 @@
         </div>
 
         @php
-            // Decode result safely
             $result = is_array($patient->result) ? $patient->result : json_decode($patient->result, true);
         @endphp
 

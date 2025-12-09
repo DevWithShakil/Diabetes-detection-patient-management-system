@@ -136,7 +136,6 @@
 </div>
 
 <style>
-    /* Custom Input Styling */
     .form-control:focus {
         border-color: #4361ee;
         box-shadow: none;
